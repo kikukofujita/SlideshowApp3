@@ -97,6 +97,8 @@
                     </view>
                     <connections>
                         <outlet property="btnName" destination="ZQ8-L6-Ahs" id="6Hs-sj-3hu"/>
+                        <outlet property="goBack" destination="2hc-E1-JwQ" id="0gJ-fR-49l"/>
+                        <outlet property="goNext" destination="yUb-eY-dJe" id="5ac-QK-Ovs"/>
                         <outlet property="imageView" destination="ctY-XX-BQk" id="KVi-B7-i48"/>
                     </connections>
                 </viewController>

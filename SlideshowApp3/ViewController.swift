@@ -12,8 +12,12 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var btnName: UIButton!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var goBack: UIButton!
+    @IBOutlet weak var goNext: UIButton!
     @IBAction func unwind(_ segue: UIStoryboardSegue) {
-        
+        goBack.isEnabled = true
+        goNext.isEnabled = true
+        btnName.setTitle("再生", for: UIControlState.normal)
     }
     
     // 一定の間隔で処理を行うためのタイマー
@@ -55,13 +59,17 @@ class ViewController: UIViewController {
             // segueから遷移先のNextViewControllerを取得
             let nextViewController:NextViewController = segue.destination as! NextViewController
             nextViewController.x = imageNameArray[dImageNo]
-        
+
+            if self.timer != nil {
+                self.timer.invalidate()  // 現在のタイマーを破棄
+                self.timer = nil
+            }
     }
 
     
     
     @IBAction func modoru(_ sender: Any) {
-        if self.timer == nil {
+ //       if self.timer == nil {
             dImageNo -= 1   // 画像の番号を１減らす
             // 画像の番号のチェック
             // 範囲より下を指している場合、最後の画像を表示
@@ -78,11 +86,11 @@ class ViewController: UIViewController {
             let image = UIImage(named: name)
             // ImageViewに読み込んだ画像をセット
             imageView.image = image
-        }
+    //    }
     }
     
     @IBAction func susumu(_ sender: Any) {
-        if self.timer == nil {
+  //      if self.timer == nil {
             dImageNo += 1   // 画像の番号を１減らす
             // 画像の番号のチェック
             // 範囲より下を指している場合、最後の画像を表示
@@ -99,18 +107,23 @@ class ViewController: UIViewController {
             let image = UIImage(named: name)
             // ImageViewに読み込んだ画像をセット
             imageView.image = image
-        }
+   //     }
     }
     
     @IBAction func saisei(_ sender: Any) {
+        
         if self.timer == nil {
             btnName.setTitle("停止", for:UIControlState.normal)
  
             self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateImage), userInfo: nil, repeats: true)
+            goBack.isEnabled = false
+            goNext.isEnabled = false
         } else {
             btnName.setTitle("再生", for: UIControlState.normal)
             self.timer.invalidate()  // 現在のタイマーを破棄
             self.timer = nil
+            goBack.isEnabled = true
+            goNext.isEnabled = true
         }
     }
     
